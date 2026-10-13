@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>حاسبة مؤشر كتلة الجسم</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f1ff;color:#292344}
+header{background:#6c4bd2;color:white;text-align:center;padding:28px 15px}
+header h1{margin:0 0 10px;font-size:26px}
+main{max-width:500px;margin:25px auto;padding:20px}
+.card{background:white;border-radius:20px;padding:24px;box-shadow:0 5px 20px #30205b18}
+label{display:block;margin:17px 0 8px;font-weight:bold}
+input,select,button{width:100%;padding:13px;border-radius:10px;font-size:16px}
+input,select{border:1px solid #d6ccef;background:white}
+button{border:0;background:#6c4bd2;color:white;font-weight:bold;margin-top:22px;cursor:pointer}
+#result{display:none;margin-top:20px;padding:18px;border-radius:12px;background:#f0ebff;text-align:center}
+.number{font-size:30px;font-weight:bold;color:#6c4bd2}
+footer{text-align:center;color:#716985;font-size:13px;margin:20px}
+</style>
+</head>
+<body>
+<header>
+<h1>حاسبة مؤشر كتلة الجسم</h1>
+<p>احسبي مؤشر كتلة جسمك بسهولة</p>
+</header>
+<main>
+<div class="card">
+<h2>أدخلي بياناتك</h2>
+<label for="weight">الوزن (كيلوغرام)</label>
+<input id="weight" type="number" min="1" placeholder="مثال: 65">
+<label for="height">الطول (سنتيمتر)</label>
+<input id="height" type="number" min="1" placeholder="مثال: 165">
+<button onclick="calculate()">احسبي المؤشر</button>
+<div id="result" aria-live="polite"></div>
+</div>
+<footer>موقع تعليمي مبسط — النتائج للبالغين وليست تشخيصاً طبياً.</footer>
+</main>
+<script>
+function calculate(){
+const w=parseFloat(document.getElementById('weight').value);
+const h=parseFloat(document.getElementById('height').value)/100;
+const r=document.getElementById('result');
+if(!w||!h||w<=0||h<=0){
+r.style.display='block';
+r.textContent='يرجى إدخال وزن وطول صحيحين.';
+return;
+}
+const bmi=w/(h*h);
+let category='';
+if(bmi<18.5)category='أقل من النطاق المعتاد';
+else if(bmi<25)category='ضمن النطاق المعتاد';
+else if(bmi<30)category='أعلى من النطاق المعتاد';
+else category='ضمن نطاق السمنة حسب تصنيف البالغين';
+r.style.display='block';
+r.innerHTML='<div>مؤشر كتلة جسمك</div><div class="number">'+bmi.toFixed(1)+'</div><p>'+category+'</p>';
+}
+</script>
+</body>
+</html>
